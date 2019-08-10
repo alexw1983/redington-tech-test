@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RedingtonTechTest.ProbabilityCalculator\RedingtonTechTest.ProbabilityCalculator.csproj" />
+    <ProjectReference Include="..\RedingtonTechTest.ProbabilityLibrary\RedingtonTechTest.ProbabilityLibrary.csproj" />
   </ItemGroup>
 
 </Project>
