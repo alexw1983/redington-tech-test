@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
-using RedingtonTechTest.WebAPI.Services.Logging.Interfaces;
 
 namespace RedingtonTechTest.WebAPI.Controllers
 {
@@ -12,48 +10,34 @@ namespace RedingtonTechTest.WebAPI.Controllers
     public class ProbabilityCalculationsController : ControllerBase
     {
         private readonly ICalculationsService _service;
-        private readonly ILoggingService _loggingService;
 
-        public ProbabilityCalculationsController(ICalculationsService service, ILoggingService loggingService)
+        public ProbabilityCalculationsController(ICalculationsService service)
         {
             _service = service;
-            _loggingService = loggingService;
         }
 
         [HttpPost]
         [Route("combine")]
-        public IActionResult CombineAWithB([FromBody]CalculationsInput input)
+        public IActionResult CombineAWithB([FromBody]CalculationInput calculationInput)
         {
-            try
-            {
-                var calculation = _service.CombineAWithB(input);
+            var calculationOutput = _service.CombineAWithB(calculationInput);
 
-                _loggingService.Log(calculation);
+            if (!calculationOutput.Validation.IsValid)
+                return BadRequest(calculationOutput.Validation);
 
-                return Ok(calculation);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return BadRequest(ex);
-            }
+            return Ok(calculationOutput.Result);
         }
 
         [HttpPost]
         [Route("either")]
-        public IActionResult EitherAOrB([FromBody]CalculationsInput input)
+        public IActionResult EitherAOrB([FromBody]CalculationInput calculationInput)
         {
-            try
-            {
-                var calculation = _service.EitherAOrB(input);
+            var calculationOutput = _service.EitherAOrB(calculationInput);
 
-                _loggingService.Log(calculation);
+            if (!calculationOutput.Validation.IsValid)
+                return BadRequest(calculationOutput.Validation);
 
-                return Ok(calculation);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                return BadRequest(ex);
-            }
+            return Ok(calculationOutput.Result);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
         public void Should_pass_if_both_A_and_B_are_in_range(decimal a, decimal b)
         {
             // arrange
-            var sut = GetSubject();
             var input = new CalculationInput
             {
                 A = a,
@@ -23,7 +22,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
             };
 
             // act
-            var actual = sut.Validate(input);
+            var actual = GetSubject().Validate(input);
 
             // assert
             actual.IsValid.Should().BeTrue();
@@ -39,7 +38,6 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
         public void Should_fail_if_input_A_is_out_of_range(decimal a)
         {
             // arrange
-            var sut = GetSubject();
             var input = new CalculationInput
             {
                 A = a,
@@ -47,7 +45,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
             };
 
             // act
-            var actual = sut.Validate(input);
+            var actual = GetSubject().Validate(input);
 
             // assert
             actual.IsValid.Should().BeFalse();
@@ -63,7 +61,6 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
         public void Should_fail_if_input_B_is_out_of_range(decimal b)
         {
             // arrange
-            var sut = GetSubject();
             var input = new CalculationInput
             {
                 A = 0.5M,
@@ -71,7 +68,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
             };
 
             // act
-            var actual = sut.Validate(input);
+            var actual = GetSubject().Validate(input);
 
             // assert
             actual.IsValid.Should().BeFalse();

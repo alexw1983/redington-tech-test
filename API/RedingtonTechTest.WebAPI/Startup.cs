@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services;
 using RedingtonTechTest.WebAPI.Services.Calculations;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
 using RedingtonTechTest.WebAPI.Services.Logging;
 using RedingtonTechTest.WebAPI.Services.Logging.Interfaces;
+using RedingtonTechTest.WebAPI.Services.Validation;
+using RedingtonTechTest.WebAPI.Services.Validation.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace RedingtonTechTest.WebAPI
@@ -25,8 +28,10 @@ namespace RedingtonTechTest.WebAPI
         {
             services.AddTransient<ICalculationsService, CalculationService>();
             services.AddTransient<ILoggingService, FileLoggingService>();
+            services.AddTransient<IValidator<CalculationInput>, CalculationInputValidator>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Redington Tech Test", Version = "v1" });

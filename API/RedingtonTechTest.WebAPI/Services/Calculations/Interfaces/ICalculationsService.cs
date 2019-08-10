@@ -4,8 +4,8 @@ namespace RedingtonTechTest.WebAPI.Services.Calculations.Interfaces
 {
     public interface ICalculationsService
     {
-        CalculationResult CombineAWithB(CalculationsInput input);
+        CalculationResult CombineAWithB(CalculationInput input);
 
-        CalculationResult EitherAOrB(CalculationsInput input);
+        CalculationResult EitherAOrB(CalculationInput input);
     }
 }
