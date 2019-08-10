@@ -41,7 +41,7 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var error = Assert.Throws<ArgumentOutOfRangeException>(() => sut.CombineWith(A, B));
 
             // assert
-            error.Should().Be("Probability values should be between 0 and 1");
+            error.Message.Should().Contain("Probability values must be between 0 and 1");
         }
 
         [TestCase(0.5, 0.5, 0.75)]
@@ -79,7 +79,7 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var error = Assert.Throws<ArgumentOutOfRangeException>(() => sut.CombineWith(A, B));
 
             // assert
-            error.Should().Be("Probability values should be between 0 and 1");
+            error.Message.Should().Contain("Probability values must be between 0 and 1");
         }
 
         private static ProbabilityCalculator GetSubject()
