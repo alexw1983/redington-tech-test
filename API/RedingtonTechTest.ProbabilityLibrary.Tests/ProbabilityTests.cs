@@ -1,11 +1,10 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
-using RedingtonTechTest.WebAPI.Services.Calculations;
 
 // ReSharper disable ObjectCreationAsStatement
 
-namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
+namespace RedingtonTechTest.ProbabilityLibrary.Tests
 {
     [TestFixture]
     public class ProbabilityTests

@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using RedingtonTechTest.WebAPI.Models;
-using RedingtonTechTest.WebAPI.Services.Calculations;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
 using RedingtonTechTest.WebAPI.Services.Logging.Interfaces;
 

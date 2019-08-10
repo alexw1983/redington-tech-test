@@ -1,5 +1,5 @@
 ﻿using System;
-using RedingtonTechTest.WebAPI.Extensions;
+using RedingtonTechTest.ProbabilityLibrary;
 using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
 
