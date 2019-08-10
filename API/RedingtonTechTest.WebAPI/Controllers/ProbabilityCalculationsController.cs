@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
+using RedingtonTechTest.WebAPI.Services.Validation;
 
 namespace RedingtonTechTest.WebAPI.Controllers
 {
@@ -18,6 +19,8 @@ namespace RedingtonTechTest.WebAPI.Controllers
 
         [HttpPost]
         [Route("combine")]
+        [ProducesResponseType(typeof(decimal), 200)]
+        [ProducesResponseType(typeof(ValidationResult), 400)]
         public IActionResult CombineAWithB([FromBody]CalculationInput input)
         {
             var output = _service.CombineAWithB(input);
@@ -30,6 +33,8 @@ namespace RedingtonTechTest.WebAPI.Controllers
 
         [HttpPost]
         [Route("either")]
+        [ProducesResponseType(typeof(decimal), 200)]
+        [ProducesResponseType(typeof(ValidationResult), 400)]
         public IActionResult EitherAOrB([FromBody]CalculationInput input)
         {
             var output = _service.EitherAOrB(input);

@@ -10,7 +10,12 @@ namespace RedingtonTechTest.WebAPI.Configuration
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Redington Tech Test", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Redington Tech Test",
+                    Version = "v1",
+                    Description = "An example API for calculating probabilities"
+                });
             });
 
             return services;
