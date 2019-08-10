@@ -22,7 +22,7 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var sut = GetSubject();
 
             // act
-            var actual = sut.CombineWith(A, B);
+            var actual = sut.CombineAWithB(A, B);
 
             // assert
             actual.Should().BeEquivalentTo(new Probability(expected));
@@ -43,7 +43,7 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var sut = GetSubject();
 
             // act
-            var actual = sut.Either(A, B);
+            var actual = sut.EitherAOrB(A, B);
 
             // assert
             actual.Should().BeEquivalentTo(new Probability(expected));
