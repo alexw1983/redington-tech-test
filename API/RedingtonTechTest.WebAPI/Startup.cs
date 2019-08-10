@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RedingtonTechTest.WebAPI.Services;
 using RedingtonTechTest.WebAPI.Services.Calculations;
-using RedingtonTechTest.WebAPI.Services.Interfaces;
+using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
+using RedingtonTechTest.WebAPI.Services.Logging;
+using RedingtonTechTest.WebAPI.Services.Logging.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace RedingtonTechTest.WebAPI
@@ -22,6 +24,7 @@ namespace RedingtonTechTest.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ICalculationsService, CalculationService>();
+            services.AddTransient<ILoggingService, FileLoggingService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
@@ -40,10 +43,7 @@ namespace RedingtonTechTest.WebAPI
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
-            else
-                app.UseHsts();
 
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

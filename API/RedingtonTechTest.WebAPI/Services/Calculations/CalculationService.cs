@@ -1,6 +1,7 @@
 ﻿using System;
 using RedingtonTechTest.WebAPI.Extensions;
 using RedingtonTechTest.WebAPI.Models;
+using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
 
 namespace RedingtonTechTest.WebAPI.Services.Calculations
 {
@@ -8,29 +9,25 @@ namespace RedingtonTechTest.WebAPI.Services.Calculations
     {
         public CalculationResult CombineAWithB(CalculationsInput input)
         {
-            var A = new Probability(input.A);
-            var B = new Probability(input.B);
-
-            return new CalculationResult
-            {
-                Result = A.CombineWith(B),
-                CalculationDate = DateTime.UtcNow,
-                Inputs = new[] { A, B },
-                TypeOfCalculation = "Combine A With B"
-            };
+            return CalculateResult(input, (a, b) => a.And(b), "A combined with B");
         }
 
         public CalculationResult EitherAOrB(CalculationsInput input)
+        {
+            return CalculateResult(input, (a, b) => a.Or(b), "Either A or B");
+        }
+
+        private static CalculationResult CalculateResult(CalculationsInput input, Func<Probability, Probability, Probability> calc, string type)
         {
             var A = new Probability(input.A);
             var B = new Probability(input.B);
 
             return new CalculationResult
             {
-                Result = A.Either(B),
+                Result = calc(A, B),
                 CalculationDate = DateTime.UtcNow,
                 Inputs = new[] { A, B },
-                TypeOfCalculation = "Either A Or B"
+                TypeOfCalculation = type
             };
         }
     }

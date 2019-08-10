@@ -1,6 +1,6 @@
 ﻿using RedingtonTechTest.WebAPI.Models;
 
-namespace RedingtonTechTest.WebAPI.Services.Calculations
+namespace RedingtonTechTest.WebAPI.Services.Calculations.Interfaces
 {
     public interface ICalculationsService
     {

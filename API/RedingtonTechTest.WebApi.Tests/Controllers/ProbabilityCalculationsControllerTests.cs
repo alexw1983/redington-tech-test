@@ -6,7 +6,8 @@ using NUnit.Framework;
 using RedingtonTechTest.WebAPI.Controllers;
 using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services.Calculations;
-using RedingtonTechTest.WebAPI.Services.Interfaces;
+using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
+using RedingtonTechTest.WebAPI.Services.Logging.Interfaces;
 
 namespace RedingtonTechTest.WebAPI.Tests.Controllers
 {
