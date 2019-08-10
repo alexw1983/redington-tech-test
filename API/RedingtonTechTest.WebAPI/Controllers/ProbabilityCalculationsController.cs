@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using RedingtonTechTest.ProbabilityCalculator;
 using RedingtonTechTest.WebAPI.Models;
+using RedingtonTechTest.WebAPI.Services;
 
 namespace RedingtonTechTest.WebAPI.Controllers
 {
@@ -10,11 +10,11 @@ namespace RedingtonTechTest.WebAPI.Controllers
     [ApiController]
     public class ProbabilityCalculationsController : ControllerBase
     {
-        private readonly IProbabilityCalculator _calculator;
+        private readonly IProbabilityCalculationsService _service;
 
-        public ProbabilityCalculationsController(IProbabilityCalculator calculator)
+        public ProbabilityCalculationsController(IProbabilityCalculationsService service)
         {
-            _calculator = calculator;
+            _service = service;
         }
 
         [HttpPost]
@@ -23,7 +23,7 @@ namespace RedingtonTechTest.WebAPI.Controllers
         {
             try
             {
-                var result = _calculator.CombineAWithB(new Probability(input.A), new Probability(input.B));
+                var result = _service.CombineAWithB(input);
 
                 return Ok(result);
             }
@@ -39,7 +39,7 @@ namespace RedingtonTechTest.WebAPI.Controllers
         {
             try
             {
-                var result = _calculator.EitherAOrB(new Probability(input.A), new Probability(input.B));
+                var result = _service.EitherAOrB(input);
 
                 return Ok(result);
             }
