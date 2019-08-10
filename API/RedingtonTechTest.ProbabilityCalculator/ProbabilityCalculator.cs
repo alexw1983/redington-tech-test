@@ -2,14 +2,20 @@
 {
     public class ProbabilityCalculator : IProbabilityCalculator
     {
-        public Probability CombineAWithB(Probability A, Probability B)
+        public ProbabilityCalculationResult CombineAWithB(Probability A, Probability B)
         {
-            return A.CombineWith(B);
+            return new ProbabilityCalculationResult
+            {
+                Result = A.CombineWith(B)
+            };
         }
 
-        public Probability EitherAOrB(Probability A, Probability B)
+        public ProbabilityCalculationResult EitherAOrB(Probability A, Probability B)
         {
-            return A.Either(B);
+            return new ProbabilityCalculationResult
+            {
+                Result = A.Either(B)
+            };
         }
     }
 }

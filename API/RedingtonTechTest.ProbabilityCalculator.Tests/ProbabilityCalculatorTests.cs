@@ -25,7 +25,10 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var actual = sut.CombineAWithB(A, B);
 
             // assert
-            actual.Should().BeEquivalentTo(new Probability(expected));
+            actual.Should().BeEquivalentTo(new ProbabilityCalculationResult
+            {
+                Result = new Probability(expected)
+            });
         }
 
         [TestCase(0.5, 0.5, 0.75)]
@@ -46,7 +49,10 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var actual = sut.EitherAOrB(A, B);
 
             // assert
-            actual.Should().BeEquivalentTo(new Probability(expected));
+            actual.Should().BeEquivalentTo(new ProbabilityCalculationResult
+            {
+                Result = new Probability(expected)
+            });
         }
 
         private static ProbabilityCalculator GetSubject()
