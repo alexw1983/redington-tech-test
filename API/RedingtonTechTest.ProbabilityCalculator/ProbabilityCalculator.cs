@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RedingtonTechTest.ProbabilityCalculator
+﻿namespace RedingtonTechTest.ProbabilityCalculator
 {
     public class ProbabilityCalculator : IProbabilityCalculator
     {
@@ -11,7 +9,7 @@ namespace RedingtonTechTest.ProbabilityCalculator
 
         public decimal Either(decimal probabilityA, decimal probabilityB)
         {
-            throw new NotImplementedException();
+            return probabilityA + probabilityB - probabilityA * probabilityB;
         }
     }
 }
