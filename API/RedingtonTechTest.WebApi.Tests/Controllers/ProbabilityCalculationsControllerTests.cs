@@ -38,7 +38,7 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
         }
 
         [Test]
-        public void CombineAWithB_with_should_ok_if_service_succeeds()
+        public void CombineAWithB_with_should_return_ok_if_service_succeeds()
         {
             // arrange
             var sut = GetSubject();
@@ -73,7 +73,7 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
         }
 
         [Test]
-        public void EitherAorB_with_should_ok_if_service_succeeds()
+        public void EitherAorB_with_should_return_ok_if_service_succeeds()
         {
             // arrange
             var sut = GetSubject();
