@@ -25,10 +25,24 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var actual = sut.CombineAWithB(A, B);
 
             // assert
-            actual.Should().BeEquivalentTo(new ProbabilityCalculationResult
-            {
-                Result = new Probability(expected)
-            });
+            actual.Result.Should().BeEquivalentTo(new Probability(expected));
+        }
+
+        [Test]
+        public void CombineWith_should_populate_result_object_correctly()
+        {
+            // arrange
+            var A = new Probability(0.5M);
+            var B = new Probability(0.5M);
+            var sut = GetSubject();
+
+            // act
+            var actual = sut.CombineAWithB(A, B);
+
+            // assert
+            actual.CalculationDate.Date.Should().Be(DateTime.UtcNow.Date);
+            actual.Inputs.Should().BeEquivalentTo(A, B);
+            actual.TypeOfCalculation.Should().Be("Combine A With B");
         }
 
         [TestCase(0.5, 0.5, 0.75)]
@@ -49,10 +63,24 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             var actual = sut.EitherAOrB(A, B);
 
             // assert
-            actual.Should().BeEquivalentTo(new ProbabilityCalculationResult
-            {
-                Result = new Probability(expected)
-            });
+            actual.Result.Should().BeEquivalentTo(new Probability(expected));
+        }
+
+        [Test]
+        public void Either_should_populate_result_object_correctly()
+        {
+            // arrange
+            var A = new Probability(0.5M);
+            var B = new Probability(0.5M);
+            var sut = GetSubject();
+
+            // act
+            var actual = sut.EitherAOrB(A, B);
+
+            // assert
+            actual.CalculationDate.Date.Should().Be(DateTime.UtcNow.Date);
+            actual.Inputs.Should().BeEquivalentTo(A, B);
+            actual.TypeOfCalculation.Should().Be("Either A Or B");
         }
 
         private static ProbabilityCalculator GetSubject()

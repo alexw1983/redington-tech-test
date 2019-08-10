@@ -1,4 +1,6 @@
-﻿namespace RedingtonTechTest.ProbabilityCalculator
+﻿using System;
+
+namespace RedingtonTechTest.ProbabilityCalculator
 {
     public class ProbabilityCalculator : IProbabilityCalculator
     {
@@ -6,7 +8,10 @@
         {
             return new ProbabilityCalculationResult
             {
-                Result = A.CombineWith(B)
+                Result = A.CombineWith(B),
+                CalculationDate = DateTime.UtcNow,
+                Inputs = new [] { A, B },
+                TypeOfCalculation = "Combine A With B"
             };
         }
 
@@ -14,7 +19,10 @@
         {
             return new ProbabilityCalculationResult
             {
-                Result = A.Either(B)
+                Result = A.Either(B),
+                CalculationDate = DateTime.UtcNow,
+                Inputs = new[] { A, B },
+                TypeOfCalculation = "Either A Or B"
             };
         }
     }
