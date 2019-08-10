@@ -1,11 +1,13 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
+using RedingtonTechTest.WebAPI.Models;
+using RedingtonTechTest.WebAPI.Services.Calculations;
 
-namespace RedingtonTechTest.ProbabilityCalculator.Tests
+namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
 {
     [TestFixture]
-    public class ProbabilityCalculatorTests
+    public class CalculationServiceTests
     {
         [TestCase(0.5, 0.5, 0.25)]
         [TestCase(0, 1, 0)]
@@ -17,12 +19,10 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
         public void CombineWith_should_return_the_product_of_the_inputs(decimal a, decimal b, decimal expected)
         {
             // arrange
-            var A = new Probability(a);
-            var B = new Probability(b);
             var sut = GetSubject();
 
             // act
-            var actual = sut.CombineAWithB(A, B);
+            var actual = sut.CombineAWithB(new CalculationsInput { A = a, B = b });
 
             // assert
             actual.Result.Should().BeEquivalentTo(new Probability(expected));
@@ -32,16 +32,16 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
         public void CombineWith_should_populate_result_object_correctly()
         {
             // arrange
-            var A = new Probability(0.5M);
-            var B = new Probability(0.5M);
+            var A = 0.5M;
+            var B = 0.5M;
             var sut = GetSubject();
 
             // act
-            var actual = sut.CombineAWithB(A, B);
+            var actual = sut.CombineAWithB(new CalculationsInput { A = A, B = B });
 
             // assert
             actual.CalculationDate.Date.Should().Be(DateTime.UtcNow.Date);
-            actual.Inputs.Should().BeEquivalentTo(A, B);
+            actual.Inputs.Should().BeEquivalentTo(new Probability(A), new Probability(B));
             actual.TypeOfCalculation.Should().Be("Combine A With B");
         }
 
@@ -55,12 +55,10 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
         public void Either_should_return_the_sum_of_the_inputs_minus_their_product(decimal a, decimal b, decimal expected)
         {
             // arrange
-            var A = new Probability(a);
-            var B = new Probability(b);
             var sut = GetSubject();
 
             // act
-            var actual = sut.EitherAOrB(A, B);
+            var actual = sut.EitherAOrB(new CalculationsInput { A = a, B = b });
 
             // assert
             actual.Result.Should().BeEquivalentTo(new Probability(expected));
@@ -70,22 +68,22 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
         public void Either_should_populate_result_object_correctly()
         {
             // arrange
-            var A = new Probability(0.5M);
-            var B = new Probability(0.5M);
+            const decimal A = 0.5M;
+            const decimal B = 0.5M;
             var sut = GetSubject();
 
             // act
-            var actual = sut.EitherAOrB(A, B);
+            var actual = sut.EitherAOrB(new CalculationsInput { A = A, B = B });
 
             // assert
             actual.CalculationDate.Date.Should().Be(DateTime.UtcNow.Date);
-            actual.Inputs.Should().BeEquivalentTo(A, B);
+            actual.Inputs.Should().BeEquivalentTo(new Probability(A), new Probability(B));
             actual.TypeOfCalculation.Should().Be("Either A Or B");
         }
 
-        private static ProbabilityCalculator GetSubject()
+        private static CalculationService GetSubject()
         {
-            return new ProbabilityCalculator();
+            return new CalculationService();
         }
     }
 }

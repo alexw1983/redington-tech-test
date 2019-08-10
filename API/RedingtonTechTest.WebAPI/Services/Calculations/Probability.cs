@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RedingtonTechTest.ProbabilityCalculator
+namespace RedingtonTechTest.WebAPI.Services.Calculations
 {
     public class Probability
     {

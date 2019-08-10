@@ -1,4 +1,6 @@
-﻿namespace RedingtonTechTest.ProbabilityCalculator
+﻿using RedingtonTechTest.WebAPI.Services.Calculations;
+
+namespace RedingtonTechTest.WebAPI.Extensions
 {
     public static class ProbabilityExtensions
     {

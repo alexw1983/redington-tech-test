@@ -1,6 +1,6 @@
 ﻿namespace RedingtonTechTest.WebAPI.Models
 {
-    public class ProbabilityCalculationsRequestModel
+    public class CalculationsInput
     {
         public decimal A { get; set; }
 

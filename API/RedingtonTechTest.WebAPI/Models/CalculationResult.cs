@@ -1,8 +1,9 @@
 ﻿using System;
+using RedingtonTechTest.WebAPI.Services.Calculations;
 
-namespace RedingtonTechTest.ProbabilityCalculator
+namespace RedingtonTechTest.WebAPI.Models
 {
-    public class ProbabilityCalculationResult
+    public class CalculationResult
     {
         public Probability Result { get; set; }
 

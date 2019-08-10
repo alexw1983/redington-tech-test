@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using RedingtonTechTest.WebAPI.Models;
-using RedingtonTechTest.WebAPI.Services;
+using RedingtonTechTest.WebAPI.Services.Calculations;
+using RedingtonTechTest.WebAPI.Services.Interfaces;
 
 namespace RedingtonTechTest.WebAPI.Controllers
 {
@@ -10,22 +11,26 @@ namespace RedingtonTechTest.WebAPI.Controllers
     [ApiController]
     public class ProbabilityCalculationsController : ControllerBase
     {
-        private readonly IProbabilityCalculationsService _service;
+        private readonly ICalculationsService _service;
+        private readonly ILoggingService _loggingService;
 
-        public ProbabilityCalculationsController(IProbabilityCalculationsService service)
+        public ProbabilityCalculationsController(ICalculationsService service, ILoggingService loggingService)
         {
             _service = service;
+            _loggingService = loggingService;
         }
 
         [HttpPost]
         [Route("combine")]
-        public IActionResult CombineAWithB([FromBody]ProbabilityCalculationsRequestModel input)
+        public IActionResult CombineAWithB([FromBody]CalculationsInput input)
         {
             try
             {
-                var result = _service.CombineAWithB(input);
+                var calculation = _service.CombineAWithB(input);
 
-                return Ok(result);
+                _loggingService.Log(calculation);
+
+                return Ok(calculation);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -35,13 +40,15 @@ namespace RedingtonTechTest.WebAPI.Controllers
 
         [HttpPost]
         [Route("either")]
-        public IActionResult EitherAOrB([FromBody]ProbabilityCalculationsRequestModel input)
+        public IActionResult EitherAOrB([FromBody]CalculationsInput input)
         {
             try
             {
-                var result = _service.EitherAOrB(input);
+                var calculation = _service.EitherAOrB(input);
 
-                return Ok(result);
+                _loggingService.Log(calculation);
+
+                return Ok(calculation);
             }
             catch (ArgumentOutOfRangeException ex)
             {

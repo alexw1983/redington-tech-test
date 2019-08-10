@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RedingtonTechTest.ProbabilityCalculator;
 using RedingtonTechTest.WebAPI.Services;
+using RedingtonTechTest.WebAPI.Services.Calculations;
+using RedingtonTechTest.WebAPI.Services.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace RedingtonTechTest.WebAPI
@@ -20,8 +21,7 @@ namespace RedingtonTechTest.WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProbabilityCalculator, ProbabilityCalculator.ProbabilityCalculator>();
-            services.AddTransient<IProbabilityCalculationsService, ProbabilityCalculationsService>();
+            services.AddTransient<ICalculationsService, CalculationService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
