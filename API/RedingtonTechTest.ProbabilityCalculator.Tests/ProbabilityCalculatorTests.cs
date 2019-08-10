@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -25,6 +26,24 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             actual.Should().Be(expected);
         }
 
+        [TestCase(-1, 1.1)]
+        [TestCase(-99999, 99999)]
+        [TestCase(-0.000001, 1.000000001)]
+        [TestCase(1.1, -1)]
+        [TestCase(99999, -99999)]
+        [TestCase(1.000001, -0.000000001)]
+        public void CombineWith_should_throw_if_either_input_is_less_than_0_or_greater_than_1(decimal A, decimal B)
+        {
+            // arrange
+            var sut = GetSubject();
+
+            // act
+            var error = Assert.Throws<ArgumentOutOfRangeException>(() => sut.CombineWith(A, B));
+
+            // assert
+            error.Should().Be("Probability values should be between 0 and 1");
+        }
+
         [TestCase(0.5, 0.5, 0.75)]
         [TestCase(0, 1, 1)]
         [TestCase(1, 1, 1)]
@@ -44,6 +63,24 @@ namespace RedingtonTechTest.ProbabilityCalculator.Tests
             actual.Should().Be(expected);
         }
 
+
+        [TestCase(-1, 1.1)]
+        [TestCase(-99999, 99999)]
+        [TestCase(-0.000001, 1.000000001)]
+        [TestCase(1.1, -1)]
+        [TestCase(99999, -99999)]
+        [TestCase(1.000001, -0.000000001)]
+        public void Either_should_throw_if_either_input_is_less_than_0_or_greater_than_1(decimal A, decimal B)
+        {
+            // arrange
+            var sut = GetSubject();
+
+            // act
+            var error = Assert.Throws<ArgumentOutOfRangeException>(() => sut.CombineWith(A, B));
+
+            // assert
+            error.Should().Be("Probability values should be between 0 and 1");
+        }
 
         private static ProbabilityCalculator GetSubject()
         {
