@@ -3,15 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RedingtonTechTest.WebAPI.Models;
-using RedingtonTechTest.WebAPI.Services;
-using RedingtonTechTest.WebAPI.Services.Calculations;
-using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
-using RedingtonTechTest.WebAPI.Services.Logging;
-using RedingtonTechTest.WebAPI.Services.Logging.Interfaces;
-using RedingtonTechTest.WebAPI.Services.Validation;
-using RedingtonTechTest.WebAPI.Services.Validation.Interfaces;
-using Swashbuckle.AspNetCore.Swagger;
+using RedingtonTechTest.WebAPI.Configuration;
 
 namespace RedingtonTechTest.WebAPI
 {
@@ -26,25 +18,16 @@ namespace RedingtonTechTest.WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ICalculationsService, CalculationService>();
-            services.AddTransient<ILoggingService, FileLoggingService>();
-            services.AddTransient<IValidator<CalculationInput>, CalculationInputValidator>();
+            services.ConfigureRedingtonServices();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Redington Tech Test", Version = "v1" });
-            });
+            services.ConfigureRedingtonSwaggerServices();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Redington Tech Test V1");
-            });
+            app.UserRedingtonSwaggerSetUp();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();

@@ -18,26 +18,26 @@ namespace RedingtonTechTest.WebAPI.Controllers
 
         [HttpPost]
         [Route("combine")]
-        public IActionResult CombineAWithB([FromBody]CalculationInput calculationInput)
+        public IActionResult CombineAWithB([FromBody]CalculationInput input)
         {
-            var calculationOutput = _service.CombineAWithB(calculationInput);
+            var output = _service.CombineAWithB(input);
 
-            if (!calculationOutput.Validation.IsValid)
-                return BadRequest(calculationOutput.Validation);
+            if (!output.Validation.IsValid)
+                return BadRequest(output.Validation);
 
-            return Ok(calculationOutput.Result);
+            return Ok(output.Result);
         }
 
         [HttpPost]
         [Route("either")]
-        public IActionResult EitherAOrB([FromBody]CalculationInput calculationInput)
+        public IActionResult EitherAOrB([FromBody]CalculationInput input)
         {
-            var calculationOutput = _service.EitherAOrB(calculationInput);
+            var output = _service.EitherAOrB(input);
 
-            if (!calculationOutput.Validation.IsValid)
-                return BadRequest(calculationOutput.Validation);
+            if (!output.Validation.IsValid)
+                return BadRequest(output.Validation);
 
-            return Ok(calculationOutput.Result);
+            return Ok(output.Result);
         }
     }
 }
