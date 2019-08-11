@@ -23,10 +23,17 @@ namespace RedingtonTechTest.WebAPI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.ConfigureRedingtonSwaggerServices();
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(options => options.AllowAnyOrigin());
+
             app.UserRedingtonSwaggerSetUp();
 
             if (env.IsDevelopment())
