@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
         }
 
         [Test]
-        public void CombineAWithB_should_return_bad_request_if_service_fails_validation()
+        public async Task CombineAWithB_should_return_bad_request_if_service_fails_validation()
         {
             // arrange
             var input = new CalculationInput();
@@ -31,14 +32,14 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
                 .Returns(failedResponse);
 
             // act
-            var result = GetSubject().CombineAWithB(input);
+            var result = await GetSubject().CombineAWithB(input);
 
             // assert
             result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
-        public void CombineAWithB_should_return_ok_if_service_succeeds()
+        public async Task CombineAWithB_should_return_ok_if_service_succeeds()
         {
             // arrange
             var input = new CalculationInput();
@@ -48,7 +49,7 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
                 .Returns(goodResponse);
 
             // act
-            var result = GetSubject().CombineAWithB(input);
+            var result = await GetSubject().CombineAWithB(input);
 
             // assert
             A.CallTo(() => _calculationService.CombineAWithB(input)).MustHaveHappened();
@@ -56,7 +57,7 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
         }
 
         [Test]
-        public void EitherAOrB_should_return_bad_request_if_service_fails_validation()
+        public async Task EitherAOrB_should_return_bad_request_if_service_fails_validation()
         {
             // arrange
             var input = new CalculationInput();
@@ -66,14 +67,14 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
                 .Returns(failedResponse);
 
             // act
-            var result = GetSubject().EitherAOrB(input);
+            var result = await GetSubject().EitherAOrB(input);
 
             // assert
             result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Test]
-        public void EitherAorB_should_return_ok_if_service_succeeds()
+        public async Task EitherAorB_should_return_ok_if_service_succeeds()
         {
             // arrange
             var input = new CalculationInput();
@@ -83,7 +84,7 @@ namespace RedingtonTechTest.WebAPI.Tests.Controllers
                 .Returns(goodResponse);
 
             // act
-            var result = GetSubject().EitherAOrB(input);
+            var result = await GetSubject().EitherAOrB(input);
 
             // assert
             result.Should().BeOfType<OkObjectResult>();

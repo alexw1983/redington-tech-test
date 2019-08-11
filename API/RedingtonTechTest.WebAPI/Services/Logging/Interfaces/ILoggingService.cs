@@ -1,9 +1,10 @@
-﻿using RedingtonTechTest.WebAPI.Models;
+﻿using System.Threading.Tasks;
+using RedingtonTechTest.WebAPI.Models;
 
 namespace RedingtonTechTest.WebAPI.Services.Logging.Interfaces
 {
     public interface ILoggingService
     {
-        void Log(CalculationResult result);
+        Task LogAsync(CalculationResult result);
     }
 }

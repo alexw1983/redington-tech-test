@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
@@ -28,15 +29,14 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
         }
 
         [Test]
-        public void CombineWith_should_return_the_probability_of_A_and_B()
+        public async Task CombineWith_should_return_the_probability_of_A_and_B()
         {
             // arrange
             const decimal A = 0.5M;
             const decimal B = 0.5M;
-            var sut = GetSubject();
 
             // act
-            var actual = sut.CombineAWithB(new CalculationInput { A = A, B = B });
+            var actual = await GetSubject().CombineAWithB(new CalculationInput { A = A, B = B });
 
             // assert
             var a = new Probability(A);
@@ -46,14 +46,14 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
         }
 
         [Test]
-        public void CombineWith_should_populate_result_object_correctly()
+        public async Task CombineWith_should_populate_result_object_correctly()
         {
             // arrange
             const decimal A = 0.5M;
             const decimal B = 0.5M;
 
             // act
-            var actual = GetSubject().CombineAWithB(new CalculationInput { A = A, B = B });
+            var actual = await GetSubject().CombineAWithB(new CalculationInput { A = A, B = B });
 
             // assert
             actual.Validation.Should().BeEquivalentTo(ValidationResult.Success());
@@ -63,7 +63,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
         }
 
         [Test]
-        public void CombineWith_should_return_if_validation_fails()
+        public async Task CombineWith_should_return_if_validation_fails()
         {
             // arrange
             const decimal inputA = 0.5M;
@@ -73,21 +73,21 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
                 .Returns(ValidationResult.Fail("FAIL"));
 
             // act
-            var actual = GetSubject().CombineAWithB(new CalculationInput { A = inputA, B = inputB });
+            var actual = await GetSubject().CombineAWithB(new CalculationInput { A = inputA, B = inputB });
 
             // assert
             actual.Validation.Should().BeEquivalentTo(ValidationResult.Fail("FAIL"));
         }
 
         [Test]
-        public void Either_should_return_the_probability_of_A_or_B()
+        public async Task Either_should_return_the_probability_of_A_or_B()
         {
             // arrange
             const decimal A = 0.5M;
             const decimal B = 0.5M;
 
             // act
-            var actual = GetSubject().EitherAOrB(new CalculationInput { A = A, B = B });
+            var actual = await GetSubject().EitherAOrB(new CalculationInput { A = A, B = B });
 
             // assert
             var a = new Probability(A);
@@ -97,14 +97,14 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
         }
 
         [Test]
-        public void Either_should_populate_result_object_correctly()
+        public async Task Either_should_populate_result_object_correctly()
         {
             // arrange
             const decimal A = 0.5M;
             const decimal B = 0.5M;
 
             // act
-            var actual = GetSubject().EitherAOrB(new CalculationInput { A = A, B = B });
+            var actual = await GetSubject().EitherAOrB(new CalculationInput { A = A, B = B });
 
             // assert
             actual.Validation.Should().BeEquivalentTo(ValidationResult.Success());
@@ -114,7 +114,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
         }
 
         [Test]
-        public void Either_should_return_if_validation_fails()
+        public async Task Either_should_return_if_validation_fails()
         {
             // arrange
             const decimal inputA = 0.5M;
@@ -124,7 +124,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Calculations
                 .Returns(ValidationResult.Fail("FAIL"));
 
             // act
-            var actual = GetSubject().EitherAOrB(new CalculationInput { A = inputA, B = inputB });
+            var actual = await GetSubject().EitherAOrB(new CalculationInput { A = inputA, B = inputB });
 
             // assert
             actual.Validation.Should().BeEquivalentTo(ValidationResult.Fail("FAIL"));

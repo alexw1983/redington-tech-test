@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using RedingtonTechTest.ProbabilityLibrary;
 using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
@@ -18,17 +19,17 @@ namespace RedingtonTechTest.WebAPI.Services.Calculations
             _validator = validator;
         }
 
-        public CalculationResult CombineAWithB(CalculationInput input)
+        public async Task<CalculationResult> CombineAWithB(CalculationInput input)
         {
-            return CalculateResult(input, (a, b) => a.And(b), "A combined with B");
+            return await CalculateResult(input, (a, b) => a.And(b), "A combined with B");
         }
 
-        public CalculationResult EitherAOrB(CalculationInput input)
+        public async Task<CalculationResult> EitherAOrB(CalculationInput input)
         {
-            return CalculateResult(input, (a, b) => a.Or(b), "Either A or B");
+            return await CalculateResult(input, (a, b) => a.Or(b), "Either A or B");
         }
 
-        private CalculationResult CalculateResult(CalculationInput input, Func<Probability, Probability, Probability> calculation, string type)
+        private async Task<CalculationResult> CalculateResult(CalculationInput input, Func<Probability, Probability, Probability> calculation, string type)
         {
             var validationResult = _validator.Validate(input);
             if (!validationResult.IsValid)
@@ -46,7 +47,7 @@ namespace RedingtonTechTest.WebAPI.Services.Calculations
                 TypeOfCalculation = type
             };
 
-            _loggingService.Log(result);
+            await _loggingService.LogAsync(result);
 
             return result;
         }

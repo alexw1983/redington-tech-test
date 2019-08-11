@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RedingtonTechTest.WebAPI.Models;
 using RedingtonTechTest.WebAPI.Services.Calculations.Interfaces;
@@ -22,9 +22,9 @@ namespace RedingtonTechTest.WebAPI.Controllers
         [Route("combine")]
         [ProducesResponseType(typeof(decimal), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
-        public IActionResult CombineAWithB([FromBody]CalculationInput input)
+        public async Task<IActionResult> CombineAWithB([FromBody]CalculationInput input)
         {
-            var output = _service.CombineAWithB(input);
+            var output = await _service.CombineAWithB(input);
 
             if (!output.Validation.IsValid)
                 return BadRequest(output.Validation);
@@ -36,9 +36,9 @@ namespace RedingtonTechTest.WebAPI.Controllers
         [Route("either")]
         [ProducesResponseType(typeof(decimal), 200)]
         [ProducesResponseType(typeof(ValidationResult), 400)]
-        public IActionResult EitherAOrB([FromBody]CalculationInput input)
+        public async Task<IActionResult> EitherAOrB([FromBody]CalculationInput input)
         {
-            var output = _service.EitherAOrB(input);
+            var output = await _service.EitherAOrB(input);
 
             if (!output.Validation.IsValid)
                 return BadRequest(output.Validation);
