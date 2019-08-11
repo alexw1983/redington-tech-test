@@ -4,6 +4,7 @@ import { CalculationService } from './services/calculation-service';
 import { AppHeader } from './components/app-header';
 import { ResultBox } from './components/result-box';
 import { FormErrors } from './components/form-errors';
+import { FormNotes } from './components/form-notes';
 
 class App extends React.Component {
 
@@ -99,6 +100,7 @@ class App extends React.Component {
               <FormErrors formErrors={this.state.formErrors} />
               <form onSubmit={this.handleSubmission}>
 
+
                 <div className="form-group">
                   <label htmlFor='A'>Input A</label>
                   <input
@@ -142,6 +144,7 @@ class App extends React.Component {
                   </button>
                 </div>
               </form>
+              <FormNotes></FormNotes>
             </div>
             <div className="col-md-6 col-xs-12">
               <ResultBox value={this.state.calcResult}></ResultBox>
