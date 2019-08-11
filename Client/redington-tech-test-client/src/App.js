@@ -11,8 +11,8 @@ class App extends React.Component {
     super();
     this.service = new CalculationService();
     this.state = {
-      A: 0.5,
-      B: 0.5,
+      A: 0,
+      B: 0,
       calcResult: 0,
       calcType: "combine",
       formErrors: { A: '', B: '' },
@@ -22,7 +22,7 @@ class App extends React.Component {
     };
   }
 
-  onSubmit = (event) => {
+  handleSubmission = (event) => {
     event.preventDefault();
 
     this.service
@@ -34,13 +34,17 @@ class App extends React.Component {
       })
   }
 
-  onChange = (event) => {
+  handleChange = (event) => {
     event.preventDefault();
 
     let nam = event.target.name;
     let val = event.target.value;
 
     this.setState({ [nam]: val }, () => { this.validateField(nam, val) });
+  }
+
+  probabilityIsValid(value) {
+    return value >= 0 && value <= 1;
   }
 
   validateField(fieldName, value) {
@@ -52,11 +56,11 @@ class App extends React.Component {
 
     switch (fieldName) {
       case 'A':
-        aIsValid = value >= 0 && value <= 1;
+        aIsValid = this.probabilityIsValid(value);
         fieldValidationErrors.A = aIsValid ? '' : message;
         break;
       case 'B':
-        bIsValid = value >= 0 && value <= 1;
+        bIsValid = this.probabilityIsValid(value);
         fieldValidationErrors.B = bIsValid ? '' : message;
         break;
       default:
@@ -93,7 +97,7 @@ class App extends React.Component {
           <div className="row">
             <div className="col-md-6 col-xs-12">
               <FormErrors formErrors={this.state.formErrors} />
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={this.handleSubmission}>
 
                 <div className="form-group">
                   <label htmlFor='A'>Input A</label>
@@ -102,7 +106,7 @@ class App extends React.Component {
                     name="A"
                     className="form-control"
                     value={this.state.A}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                   />
                 </div>
 
@@ -113,7 +117,7 @@ class App extends React.Component {
                     name="B"
                     className="form-control"
                     value={this.state.B}
-                    onChange={this.onChange}
+                    onChange={this.handleChange}
                   />
                 </div>
 
@@ -123,7 +127,7 @@ class App extends React.Component {
                     className="form-control"
                     name="calcType"
                     value={this.state.calcType}
-                    onChange={this.onChange}>
+                    onChange={this.handleChange}>
                     <option value="combine">Combine</option>
                     <option value="either">Either</option>
                   </select>
