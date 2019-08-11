@@ -32,6 +32,7 @@ namespace RedingtonTechTest.WebAPI
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Only a demo don't panic
             app.UseCors(builder =>
             {
                 builder.AllowAnyOrigin();
