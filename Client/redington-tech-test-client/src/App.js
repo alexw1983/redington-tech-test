@@ -1,23 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { A: 0, B: 0, CALC: 0, myType: "combine" };
-
-    this.hitAPI();
+    this.state = { A: null, B: null, CALC: null, calcType: "combine" };
   }
 
   hitAPI() {
 
-    const url = this.state.myType === "combine" ?
-      'http://localhost:5000/api/probability-calculations/combine' :
-      'http://localhost:5000/api/probability-calculations/either';
-    //console.log('got here');
+    //const root = 'http://localhost:5000/api/probability-calculations';
+
+    const root = 'https://aw-redington.azurewebsites.net/api/probability-calculations';
+    const url = this.state.calcType === "combine" ? `${root}/combine` : `${root}/either`;
+
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -57,52 +52,73 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="App">
-      <h1>YOUR MUM</h1>
-      <header className="App-header">
-        <p>
-          CALC = {this.state.CALC}
-        </p>
+    return <div className="container">
+      <div className="pb-2 mt-4 mb-2 border-bottom">
+        <h1>Redington Tech Test</h1>
+      </div>
 
-        <form onSubmit={this.mySubmitHandler}>
-          <h1>Hello</h1>
-          <p>A:</p>
-          <input
-            type="text" name='A'
-            onChange={this.myChangeHandler}
-          />
+      <div className="card card-primary">
+        <div className="card-header">
+          <h3>
+            Probability Calculator
+          </h3>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-md-6 col-xs-12">
+              <form onSubmit={this.mySubmitHandler}>
+                <div className="form-group">
+                  <label htmlFor="A">A:</label>
+                  <input
+                    type="text"
+                    name='A'
+                    className="form-control"
+                    onChange={this.myChangeHandler}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="B">B:</label>
+                  <input
+                    type="text"
+                    name='B'
+                    className="form-control"
+                    onChange={this.myChangeHandler}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="calcType">Type</label>
+                  <select
+                    className="form-control"
+                    name="calcType"
+                    value={this.state.calcType}
+                    onChange={this.myChangeHandler}>
+                    <option value="combine">Combine</option>
+                    <option value="either">Either</option>
+                  </select>
+                </div>
 
-          <p>B:</p>
-          <input
-            type="text" name='B'
-            onChange={this.myChangeHandler}
-          />
-          <p>type</p>
-
-          <select name="myType" value={this.state.myType} onChange={this.myChangeHandler}>
-            <option value="combine">Combine</option>
-            <option value="either">Either</option>
-
-          </select>
-          <p></p>
-          <input
-            type='submit'
-          />
-        </form>
-
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+                <div className="form-group">
+                  <button
+                    type='submit'
+                    className="btn btn-primary" >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className="col-md-6 col-xs-12">
+              <div className="card .bg-info">
+                <div className="card-header">
+                  Result
+                </div>
+                <div className="card-body">
+                  {this.state.CALC}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   };
 }
