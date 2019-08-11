@@ -1,9 +1,9 @@
+import { CONFIG } from '../app-config';
 
 export class CalculationService {
   calculateProbability = (calcType, A, B) => {
 
-    const root = 'https://aw-redington.azurewebsites.net/api/probability-calculations';
-    const url = calcType === "combine" ? `${root}/combine` : `${root}/either`;
+    const url = calcType === "combine" ? `${CONFIG.API_ROOT}/combine` : `${CONFIG.API_ROOT}/either`;
 
     return fetch(url, {
       method: 'POST',
