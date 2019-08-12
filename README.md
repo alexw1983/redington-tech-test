@@ -12,7 +12,6 @@ You can find the client app here => [App](https://aw-probability-calculator.azur
 
 You can find the swagger for the backend here => [Swagger](https://aw-redington.azurewebsites.net/swagger/index.html)  
 
-The github repo can be found here => [github](https://github.com/alexw1983/redington-tech-test)
 
 ## Why did I do this?
 
@@ -29,6 +28,7 @@ I went for a React.js client because I have been wanting to try it out for a whi
 - Using Typescript.
 - A library for doing the forms with validation. The way I went for is fine but I am sure there is a more elegant solution out there.
 - Deploying to Azure without having to commit the build folder to source control.
+- Per environment config
 
 ## How to run this locally
 

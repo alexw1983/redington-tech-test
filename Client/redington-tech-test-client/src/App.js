@@ -100,7 +100,6 @@ class App extends React.Component {
               <FormErrors formErrors={this.state.formErrors} />
               <form onSubmit={this.handleSubmission}>
 
-
                 <div className="form-group">
                   <label htmlFor='A'>Input A</label>
                   <input

@@ -25,6 +25,36 @@ namespace RedingtonTechTest.ProbabilityLibrary.Tests
             error.Message.Should().Contain($"{value} is not between 0 and 1");
         }
 
+        [TestCase(1)]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        public void IsValid_should_pass_if_input_is_in_range(decimal input)
+        {
+            // act
+            var actual = Probability.IsValid(input);
+
+            // assert
+            actual.Should().BeTrue();
+        }
+
+        [TestCase(-1)]
+        [TestCase(1.1)]
+        [TestCase(-0.0000001)]
+        [TestCase(-999999)]
+        [TestCase(9999999)]
+        [TestCase(1.00000001)]
+
+        public void Should_fail_if_input_is_out_of_range(decimal input)
+        {
+            // act
+            var actual = Probability.IsValid(input);
+
+            // assert
+            actual.Should().BeFalse();
+        }
+
+
         [TestCase(0.5, 0.5, 0.25)]
         [TestCase(0, 1, 0)]
         [TestCase(1, 1, 1)]

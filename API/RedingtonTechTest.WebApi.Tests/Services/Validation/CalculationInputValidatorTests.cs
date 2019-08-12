@@ -75,7 +75,7 @@ namespace RedingtonTechTest.WebApi.Tests.Services.Validation
             actual.Error.Should().Be($"Value {b} for input is out of range. Must be between 0 and 1");
         }
 
-        private CalculationInputValidator GetSubject()
+        private static CalculationInputValidator GetSubject()
         {
             return new CalculationInputValidator();
         }
